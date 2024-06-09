@@ -135,7 +135,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                             : setSidebarExpanded(true);
                         }}
                       >
-                        <svg
+                        {/* <svg
                           className="fill-current"
                           width="18"
                           height="18"
@@ -163,8 +163,8 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                             d="M16.875 16.1156H1.77187C1.43438 16.1156 1.125 16.3969 1.125 16.7625C1.125 17.1281 1.40625 17.4094 1.77187 17.4094H16.875C17.2125 17.4094 17.5219 17.1281 17.5219 16.7625C17.5219 16.3969 17.2125 16.1156 16.875 16.1156Z"
                             fill="white"
                           />
-                        </svg>
-                        Forms
+                        </svg> */}
+                        SequenceExplorer
                         <svg
                           className={`absolute right-4 top-1/2 -translate-y-1/2 fill-current ${
                             open && "rotate-180"
@@ -198,7 +198,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                                 "text-white"
                               }`}
                             >
-                              Form Elements
+                              next_arr
                             </Link>
                           </li>
                           <li>
@@ -209,7 +209,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                                 "text-white"
                               } `}
                             >
-                              Form Layout
+                              step
                             </Link>
                           </li>
                         </ul>
