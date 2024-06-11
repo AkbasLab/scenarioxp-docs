@@ -14,24 +14,26 @@ interface SidebarProps {
 
 const links = [
   { title: "project", path: "/project" },
-<<<<<<< HEAD
   { title: "orthonormalize", path: "/orthonormalize" },
   { title: "Generate Rotation Matrix", path: "/generate-rotation-matrix" },
-  { title: "Sample Out of Bounds Exception", path: "sample-of-bounds-exception" },
+  {
+    title: "Sample Out of Bounds Exception",
+    path: "sample-of-bounds-exception",
+  },
   { title: "Boundary Lost Exception", path: "boundary-lost-exception" },
-  { title: "Exploration Complete Exception", path: "exploration-complete-exception" },
+  {
+    title: "Exploration Complete Exception",
+    path: "exploration-complete-exception",
+  },
   { title: "Scenario Manager", path: "scenario-manager" },
   { title: "Scenario", path: "scenario" },
   { title: "Explorer", path: "explorer" },
   { title: "Exhaustive Explorer", path: "exhaustive-explorer" },
   { title: "Sequence Explorer", path: "sequence-explorer" },
-
-=======
   { title: "Exhaustive Explorer", path: "/exhaustive-explorer" },
   { title: "Sequence Explorer", path: "/sequence-explorer" },
   { title: "Find Surface Explorer", path: "/find-surface-explorer" },
   { title: "Boundary RRT Explorer", path: "/boundary-rrt-explorer" },
->>>>>>> e62170524f72466946715f100dc7240641327e9a
 ];
 
 const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
@@ -84,9 +86,9 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
   return (
     <aside
       ref={sidebar}
-      className={`absolute left-0 top-0 z-9999 flex h-screen w-72.5 flex-col justify-between overflow-y-hidden bg-black duration-300 ease-linear dark:bg-boxdark lg:static lg:translate-x-0 ${
+      className={`absolute left-0 top-0 z-9999 flex h-screen w-72.5 flex-col justify-between bg-black duration-300 ease-linear dark:bg-boxdark lg:static lg:translate-x-0 ${
         sidebarOpen ? "translate-x-0" : "-translate-x-full"
-      }`}
+      } overflow-auto`} // Add overflow-auto class here
     >
       <div>
         {/* <!-- SIDEBAR HEADER --> */}
@@ -126,7 +128,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
         </div>
         {/* <!-- SIDEBAR HEADER --> */}
 
-        <div className="no-scrollbar flex flex-col overflow-y-auto duration-300 ease-linear">
+        <div className="flex flex-col duration-300 ease-linear">
           {/* <!-- Sidebar Menu --> */}
           <nav className="px-4 py-4 lg:px-6">
             {/* <!-- Menu Group --> */}
@@ -279,9 +281,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                         </Link>
                         {/* <!-- Dropdown Menu Start --> */}
                         <div
-                          className={`translate transform overflow-hidden ${
-                            !open && "hidden"
-                          }`}
+                          className={`translate transform ${!open && "hidden"}`}
                         >
                           <ul className="mb-5.5 mt-4 flex flex-col gap-2.5 pl-6">
                             <li>
@@ -386,9 +386,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                         </Link>
                         {/* <!-- Dropdown Menu Start --> */}
                         <div
-                          className={`translate transform overflow-hidden ${
-                            !open && "hidden"
-                          }`}
+                          className={`translate transform ${!open && "hidden"}`}
                         >
                           <ul className="mb-5.5 mt-4 flex flex-col gap-2.5 pl-6">
                             <li>
