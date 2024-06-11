@@ -2,6 +2,7 @@
 
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import CodeBlock from "@/components/CodeBlock/CodeBlock";
+import transition from "@/transition.js";
 
 import data from "../../data/data.js";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
@@ -39,7 +40,7 @@ const styles = {
 const SequenceExplorerMethod = () => {
   return (
     <DefaultLayout>
-      <Breadcrumb pageName="SequenceExplorer" />
+      <Breadcrumb pageName="SequenceExplorer" typeOfUtil="class" />
 
       <div style={styles.container}>
         <section style={styles.section}>
@@ -157,4 +158,4 @@ const SequenceExplorerMethod = () => {
   );
 };
 
-export default SequenceExplorerMethod;
+export default transition(SequenceExplorerMethod);

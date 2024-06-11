@@ -1,6 +1,7 @@
 import Link from "next/link";
 interface BreadcrumbProps {
   pageName: string;
+  typeOfUtil: string;
 }
 
 const styles = {
@@ -11,7 +12,7 @@ const styles = {
   },
 };
 
-const Breadcrumb = ({ pageName }: BreadcrumbProps) => {
+const Breadcrumb = ({ pageName, typeOfUtil }: BreadcrumbProps) => {
   return (
     <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
       {/* <h2 className="text-title-md2 font-semibold text-black dark:text-white">
@@ -19,7 +20,8 @@ const Breadcrumb = ({ pageName }: BreadcrumbProps) => {
       </h2> */}
 
       <h1 style={styles.header}>
-        Function: <code className="font-thin">{pageName}</code>
+        {typeOfUtil === "function" ? "Function" : "Class"}:{" "}
+        <code className="font-thin">{pageName}</code>
       </h1>
 
       <nav>

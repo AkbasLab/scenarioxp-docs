@@ -2,6 +2,7 @@
 
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import CodeBlock from "@/components/CodeBlock/CodeBlock";
+import transition from "@/transition.js";
 
 import data from "../../data/data.js";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
@@ -39,7 +40,7 @@ const styles = {
 const ProjectMethod = () => {
   return (
     <DefaultLayout>
-      <Breadcrumb pageName="Project" />
+      <Breadcrumb pageName="Project" typeOfUtil="function" />
 
       <div style={styles.container}>
         <section style={styles.section}>
@@ -108,4 +109,4 @@ const ProjectMethod = () => {
   );
 };
 
-export default ProjectMethod;
+export default transition(ProjectMethod);
