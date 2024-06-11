@@ -37,32 +37,39 @@ const styles = {
   },
 };
 
-const ExhaustiveExplorerMethod = () => {
+const FindSurfaceExplorer = () => {
   return (
     <DefaultLayout>
-      <Breadcrumb pageName="ExhaustiveExplorer" typeOfUtil="class" />
+      <Breadcrumb pageName="FindSurfaceExplorer" typeOfUtil="class" />
 
       <div style={styles.container}>
         <section style={styles.section}>
           <h2 style={styles.header2}>Class Overview</h2>
           <p>
-            <code>ExhaustiveExplorer</code> is a subclass of{" "}
-            <code>Explorer</code> designed for brute force exploration. It
-            exhaustively tests all combinations of parameters specified in the{" "}
-            <code>ScenarioManager</code>. This class is useful for scenarios
-            where a comprehensive exploration of parameter space is required to
-            achieve the target score.
+            <code>FindSurfaceExplorer</code> is a subclass of{" "}
+            <code>Explorer</code> that navigates from a specified root point
+            within a target envelope to the surface. This class helps in finding
+            the boundary or surface of the parameter space by adjusting the
+            parameters iteratively.
           </p>
         </section>
 
         <section style={styles.section}>
           <h2 style={styles.header2}>Initialization</h2>
           <p>
-            The constructor for <code>ExhaustiveExplorer</code> initializes the
-            class with a <code>ScenarioManager</code>, a <code>Scenario</code>{" "}
-            callable, and a <code>target_score_classifier</code> callable.
+            The constructor for <code>FindSurfaceExplorer</code> initializes the
+            class with a root point, seed, and other parameters necessary for
+            exploration.
           </p>
           <ul>
+            <li>
+              <strong>root</strong> <em>(np.ndarray)</em>: The starting point
+              for the exploration.
+            </li>
+            <li>
+              <strong>seed</strong> <em>(int)</em>: Seed for the random number
+              generator.
+            </li>
             <li>
               <strong>scenario_manager</strong> <em>(ScenarioManager)</em>: The
               manager responsible for handling scenarios.
@@ -84,12 +91,36 @@ const ExhaustiveExplorerMethod = () => {
           <h2 style={styles.header2}>Attributes</h2>
           <ul>
             <li>
-              <strong>_all_combinations</strong> <em>(list[np.ndarray])</em>:
-              List of all parameter combinations to be tested.
+              <strong>root</strong> <em>(np.ndarray)</em>: The initial root
+              point for the exploration.
             </li>
             <li>
-              <strong>_ptr</strong> <em>(int)</em>: Pointer to the current
-              combination being tested.
+              <strong>_d</strong> <em>(np.ndarray)</em>: The jump distance for
+              each parameter.
+            </li>
+            <li>
+              <strong>_v</strong> <em>(np.ndarray)</em>: The vector for the
+              direction of exploration.
+            </li>
+            <li>
+              <strong>_s</strong> <em>(np.ndarray)</em>: The step size in the
+              direction of <code>_v</code>.
+            </li>
+            <li>
+              <strong>_interm</strong> <em>(list)</em>: A list of intermediate
+              points during exploration.
+            </li>
+            <li>
+              <strong>_prev</strong> <em>(np.ndarray)</em>: The previous point
+              in the exploration.
+            </li>
+            <li>
+              <strong>_cur</strong> <em>(np.ndarray)</em>: The current point in
+              the exploration.
+            </li>
+            <li>
+              <strong>_stage</strong> <em>(int)</em>: The current stage of the
+              exploration process.
             </li>
           </ul>
         </section>
@@ -98,12 +129,8 @@ const ExhaustiveExplorerMethod = () => {
           <h2 style={styles.header2}>Properties</h2>
           <ul>
             <li>
-              <strong>all_combinations</strong> <em>(list[np.ndarray])</em>:
-              Returns the list of all parameter combinations.
-            </li>
-            <li>
-              <strong>ptr</strong> <em>(int)</em>: Returns the current pointer
-              value.
+              <strong>v</strong> <em>(np.ndarray)</em>: Returns the exploration
+              vector.
             </li>
           </ul>
         </section>
@@ -118,19 +145,29 @@ const ExhaustiveExplorerMethod = () => {
             <strong>step() -&gt; bool</strong>
           </p>
           <p>
-            Advances to the next combination of parameters. Returns{" "}
+            Advances to the next point in the exploration process. Returns{" "}
             <code>True</code> if the exploration is complete, otherwise{" "}
             <code>False</code>.
+          </p>
+          <p>
+            <strong>
+              _round_to_limits(arr: np.ndarray, min: np.ndarray, max:
+              np.ndarray) -&gt; np.ndarray
+            </strong>
+          </p>
+          <p>
+            Rounds each dimension in <code>arr</code> to be within the specified{" "}
+            <code>min</code> and <code>max</code> limits.
           </p>
         </section>
 
         <section style={styles.section}>
           <h2 style={styles.header2}>Function Definition</h2>
-          <CodeBlock data={data.exhaustive_explorer.function_def} />
+          <CodeBlock data={data.find_surface_explorer.function_def} />
         </section>
       </div>
     </DefaultLayout>
   );
 };
 
-export default transition(ExhaustiveExplorerMethod);
+export default transition(FindSurfaceExplorer);

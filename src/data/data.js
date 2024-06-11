@@ -128,6 +128,165 @@ print("y:", y)`,
             self._stage = self.STAGE_EXPLORATION_COMPLETE
         return tsc`,
   },
+  find_surface_explorer: {
+    function_def: `class FindSurfaceExplorer(Explorer):
+    def __init__(self, 
+        root : np.ndarray,
+        seed : int,
+        scenario_manager : ScenarioManager,
+        scenario : Callable[[pd.Series], Scenario],
+        target_score_classifier : Callable[[pd.Series], bool]
+    ):
+        super().__init__(scenario_manager, scenario, target_score_classifier)
+        self.root = root
+        self._d = scenario_manager.params["inc_norm"].to_numpy()
+        rng = np.random.RandomState(seed=seed)
+        self._v = rng.uniform(-1,1, size=root.shape)
+        self._s = self._v * self._d / np.linalg.norm(self._v)
+        self._interm = [root]
+        self._prev = None
+        self._cur = root
+        self._stage = 0
+        return
+
+    @property
+    def v(self) -> np.ndarray:
+        return self._v
+
+    def step(self):
+        if self._stage == 0:
+            self._prev = self._cur
+            self._interm += [self._prev]
+            self._cur = self._round_to_limits(
+                self._prev + self._s,
+                np.zeros(len(self.root)),
+                np.ones(len(self.root))
+            )
+            if all(self._cur == self._prev):
+                self._stage = 1
+            elif not super().step():
+                self._stage = 1
+            return False
+        elif self._stage == 1:
+            self._s *= 0.5
+            self._cur = self._round_to_limits(
+                self._prev + self._s,
+                np.zeros(len(self.root)),
+                np.ones(len(self.root))
+            )
+            if all(self._cur == self._prev):
+                self._stage = self.STAGE_EXPLORATION_COMPLETE
+                return True
+            elif not super().step():
+                self._stage = self.STAGE_EXPLORATION_COMPLETE
+                return True
+            self._stage = 2
+            return False
+        elif self._stage == 2:
+            self._prev = self._cur
+            self._interm += [self._prev]
+            self._cur = self._round_to_limits(
+                self._prev + self._s,
+                np.zeros(len(self.root)),
+                np.ones(len(self.root))
+            )
+            if all(self._cur == self._prev):
+                self._stage = self.STAGE_EXPLORATION_COMPLETE
+                return True
+            elif not super().step():
+                self._stage = self.STAGE_EXPLORATION_COMPLETE
+                return True
+            return False
+        raise NotImplemented
+
+    def next_arr(self) -> np.ndarray:
+        return self._cur
+
+    def _round_to_limits(
+        self,
+        arr : np.ndarray, 
+        min : np.ndarray, 
+        max : np.ndarray
+    ) -> np.ndarray:
+        is_lower = arr < min
+        is_higher = arr > max
+        for i in range(len(arr)):
+            if is_lower[i]:
+                arr[i] = min[i]
+            elif is_higher[i]:
+                arr[i] = max[i]
+        return arr`,
+  },
+  boundary_rrt_explorer: {
+    function_def: `class BoundaryRRTExplorer(Explorer):
+    def __init__(self,
+        root : np.ndarray,
+        root_n : np.ndarray,
+        scenario_manager : ScenarioManager,
+        scenario : Callable[[pd.Series], Scenario],
+        target_score_classifier : Callable[[pd.Series], bool],
+        strategy : str = "e",
+        delta_theta : float = 15 * np.pi / 180,
+        theta0 : float = 90 * np.pi / 180,
+        N : int = 4,
+        scale : float =  2
+    ): 
+        super().__init__(scenario_manager, scenario, target_score_classifier)
+        
+        classifier = self._brrt_classifier
+        domain = sbt.Domain.normalized(root.shape[0])
+        scaler = scenario_manager.params["inc_norm"].to_numpy() * scale
+
+        strategy = strategy.lower()
+        assert strategy in ["constant", "exponential", "const", "exp", "c", "e"]
+
+        if strategy in ["constant", "const", "c"]:
+            adh_factory = sbt.ConstantAdherenceFactory(
+                classifier, domain, scaler, delta_theta, True
+            )
+        else:
+            adh_factory = sbt.ExponentialAdherenceFactory(
+                classifier, scaler, theta0, N, domain, True
+            )
+
+        self._brrt = sbt.BoundaryRRT(
+            sbt.Point(root), root_n, adh_factory
+        )
+
+        self._n_boundary_lost_exceptions = 0
+        self._n_sample_out_of_bounds_exceptions = 0
+        return
+
+    @property
+    def brrt(self) -> sbt.BoundaryRRT:
+        return self._brrt
+    
+    @property
+    def n_boundary_lost_exceptions(self) -> int:
+        return self._n_boundary_lost_exceptions
+
+    @property
+    def n_sample_out_of_bounds_exceptions(self) -> int:
+        return self._n_sample_out_of_bounds_exceptions
+
+    def _brrt_classifier(self, p : sbt.Point) -> bool:
+        self._arr = p.array
+        return super().step()
+
+    def next_arr(self) -> np.ndarray:
+        return self._arr
+
+    def step(self):
+        try: 
+            self.brrt.step()
+        except sbt.BoundaryLostException:
+            self._n_boundary_lost_exceptions += 1
+        except sbt.SampleOutOfBoundsException:
+            self._n_sample_out_of_bounds_exceptions += 1
+        except SampleOutOfBoundsException: 
+            self._n_sample_out_of_bounds_exceptions += 1
+        return False`,
+  },
 };
 
 export default data;

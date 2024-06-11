@@ -12,6 +12,7 @@
     "@react-email/components": "^0.0.19",
     "apexcharts": "^3.45.2",
     "flatpickr": "^4.6.13",
+    "framer-motion": "^11.2.10",
     "jsvectormap": "^1.5.3",
     "next": "14.1.0",
     "react": "^18",
