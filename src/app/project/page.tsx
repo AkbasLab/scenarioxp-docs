@@ -1,16 +1,10 @@
+"use client";
+
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
-import TableOne from "@/components/Tables/TableOne";
-import TableThree from "@/components/Tables/TableThree";
-import TableTwo from "@/components/Tables/TableTwo";
+import CodeBlock from "@/components/CodeBlock/CodeBlock";
 
-import { Metadata } from "next";
+import data from "../../data/data.js";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
-
-export const metadata: Metadata = {
-  title: "Next.js Tables | TailAdmin - Next.js Dashboard Template",
-  description:
-    "This is Next.js Tables page for TailAdmin - Next.js Tailwind CSS Admin Dashboard Template",
-};
 
 const styles = {
   container: {
@@ -42,22 +36,12 @@ const styles = {
   },
 };
 
-const TablesPage = () => {
+const ProjectMethod = () => {
   return (
     <DefaultLayout>
       <Breadcrumb pageName="Project" />
 
-      {/* <div className="flex flex-col gap-10">
-        <TableOne />
-        <TableTwo />
-        <TableThree />
-      </div> */}
-
       <div style={styles.container}>
-        {/* <h1 style={styles.header}>
-          Function: <code className="font-thin">project</code>
-        </h1> */}
-
         <section style={styles.section}>
           <h2 style={styles.header2}>Description</h2>
           <p>
@@ -112,42 +96,16 @@ const TablesPage = () => {
 
         <section style={styles.section}>
           <h2 style={styles.header2}>Examples</h2>
-          <pre style={styles.codeBlock}>
-            {`// Example 1: Without Discretization Increment
-const result1 = project(10, 20, 0.5);
-console.log(result1);  // Output: 15.0
-
-// Example 2: With Discretization Increment
-const result2 = project(10, 20, 0.33, 0.1);
-console.log(result2);  // Output: 13.0`}
-          </pre>
+          <CodeBlock data={data.project.example_code} />
         </section>
 
         <section style={styles.section}>
           <h2 style={styles.header2}>Function Definition</h2>
-          <pre style={styles.codeBlock}>
-            {`def project(a: float, b: float, n: float, inc: float = None) -> float:
-    """
-    Project a normal val @n between @a and @b with a discretization 
-    increment @inc.
-    """
-    assert n >= 0 and n <= 1
-    assert b >= a
-
-    # If no increment is provided, return the projection
-    if inc is None:
-        return n * (b - a) + a
-
-    # Otherwise, round to the nearest increment
-    n_inc = (b - a) / inc
-    
-    x = np.round(n_inc * n)
-    return min(a + x * inc, b)`}
-          </pre>
+          <CodeBlock data={data.project.function_def} />
         </section>
       </div>
     </DefaultLayout>
   );
 };
 
-export default TablesPage;
+export default ProjectMethod;

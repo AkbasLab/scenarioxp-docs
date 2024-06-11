@@ -19,7 +19,7 @@ const Breadcrumb = ({ pageName }: BreadcrumbProps) => {
       </h2> */}
 
       <h1 style={styles.header}>
-        Function: <code className="font-thin">project</code>
+        Function: <code className="font-thin">{pageName}</code>
       </h1>
 
       <nav>
