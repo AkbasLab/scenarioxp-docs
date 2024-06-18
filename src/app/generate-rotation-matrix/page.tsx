@@ -87,7 +87,6 @@ const GenerateRotationMatrixMethod = () => {
   rotation_matrix = rotation_fn(theta)
   print(rotation_matrix)  # Output: the rotation matrix for 45 degrees`} />
           </section>
-  
         </div>
       </DefaultLayout>
     );
