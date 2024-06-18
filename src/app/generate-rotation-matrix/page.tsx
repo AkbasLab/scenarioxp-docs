@@ -87,45 +87,6 @@ const GenerateRotationMatrixMethod = () => {
   rotation_matrix = rotation_fn(theta)
   print(rotation_matrix)  # Output: the rotation matrix for 45 degrees`} />
           </section>
-  
-          <section style={styles.section}>
-            <h2 style={styles.header2}>Function Definition</h2>
-            <CodeBlock data={`import numpy as np
-  from typing import Callable
-  
-  def generateRotationMatrix(u: np.ndarray, v: np.ndarray) -> Callable[[float], np.ndarray]:
-      """
-      Creates a function that can construct a matrix that rotates by a given angle.
-  
-      Args:
-          u, v : ndarray
-              The two vectors that represent the span to rotate across.
-  
-      Raises:
-          Exception: fails if @u and @v aren't vectors or if they have differing
-              number of dimensions.
-  
-      Returns:
-          Callable[[float], ndarray]: A function that returns a rotation matrix
-              that rotates that number of degrees using the provided span.
-      """
-      u = u.squeeze()
-      v = v.squeeze()
-  
-      if u.shape != v.shape:
-          raise Exception("Dimension mismatch...")
-      elif len(u.shape) != 1:
-          raise Exception("Arguments u and v must be vectors...")
-  
-      u, v = orthonormalize(u, v)
-  
-      I = np.identity(len(u.T))
-  
-      coef_a = v * u.T - u * v.T
-      coef_b = u * u.T + v * v.T
-  
-      return lambda theta: I + np.sin(theta) * coef_a + (np.cos(theta) - 1) * coef_b`} />
-          </section>
         </div>
       </DefaultLayout>
     );
