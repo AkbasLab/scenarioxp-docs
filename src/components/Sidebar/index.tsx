@@ -14,7 +14,6 @@ interface SidebarProps {
 
 const links = [
   { title: "project", path: "/project" },
-<<<<<<< HEAD
   { title: "orthonormalize", path: "/orthonormalize" },
   { title: "Generate Rotation Matrix", path: "/generate-rotation-matrix" },
   { title: "Sample Out of Bounds Exception", path: "sample-of-bounds-exception" },
@@ -25,13 +24,10 @@ const links = [
   { title: "Explorer", path: "explorer" },
   { title: "Exhaustive Explorer", path: "exhaustive-explorer" },
   { title: "Sequence Explorer", path: "sequence-explorer" },
-
-=======
   { title: "Exhaustive Explorer", path: "/exhaustive-explorer" },
   { title: "Sequence Explorer", path: "/sequence-explorer" },
   { title: "Find Surface Explorer", path: "/find-surface-explorer" },
   { title: "Boundary RRT Explorer", path: "/boundary-rrt-explorer" },
->>>>>>> e62170524f72466946715f100dc7240641327e9a
 ];
 
 const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {

@@ -95,37 +95,6 @@ const OrthonormalizeMethod = () => {
   print(un)  # Output: normalized u vector
   print(vn)  # Output: orthogonal and normalized to un`} />
           </section>
-  
-          <section style={styles.section}>
-            <h2 style={styles.header2}>Function Definition</h2>
-            <CodeBlock data={`import numpy as np
-  
-  def normalize(x: np.ndarray) -> np.ndarray:
-      return x / np.linalg.norm(x)
-  
-  def orthonormalize(u: np.ndarray, v: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
-      """
-      Generates orthonormal vectors given two vectors @u, @v which form a span.
-  
-      -- Parameters --
-      u, v : np.ndarray
-          Two n-d vectors of the same length
-  
-      -- Return --
-      (un, vn)
-          Orthonormal vectors for the span defined by @u, @v
-      """
-      assert len(u) == len(v), "Vectors u and v must be of the same length."
-  
-      un = normalize(u)
-      vn = v - np.dot(un, v) * un
-      vn = normalize(vn)
-  
-      if not (np.dot(un, vn) < 1e-4):
-          return u, v
-  
-      return un, vn`} />
-          </section>
         </div>
       </DefaultLayout>
     );
