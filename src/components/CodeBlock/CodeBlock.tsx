@@ -4,7 +4,7 @@ import "./CodeBlock.css";
 
 const CodeBlock = ({ data }: { data: string }) => {
   return (
-    <div className="demo">
+    <div className="demo my-4">
       <CopyBlock
         language={"python"}
         text={data}

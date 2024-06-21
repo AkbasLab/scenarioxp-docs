@@ -6,6 +6,7 @@ import transition from "@/transition.js";
 
 import data from "../../data/data.js";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
+import Image from "next/image.js";
 
 const styles = {
   container: {
@@ -34,6 +35,11 @@ const styles = {
     fontSize: "20px",
     fontWeight: "600",
     marginBottom: "10px",
+  },
+  header3: {
+    fontSize: "15px",
+    fontWeight: "600",
+    marginBottom: "7px",
   },
 };
 
@@ -85,6 +91,50 @@ const FindSurfaceExplorer = () => {
               the target score.
             </li>
           </ul>
+
+          <h3 style={styles.header3}>Example</h3>
+          <CodeBlock
+            data={`import scenarioxp as sxp
+
+fs_exp = sxp.FindSurfaceExplorer(
+        root = seq_exp.arr_history[-1],
+        seed = random.randint(0,9999),
+        scenario_manager = manager,
+        scenario = scenario,
+        target_score_classifier = tsc
+)`}
+          />
+          <p>
+            In this example:
+            <ul>
+              <li>
+                <code>root</code> is set to <code>[0.5, 0.5]</code>, the
+                starting point for exploration.
+              </li>
+              <li>
+                <code>seed</code> is set to <code>42</code> for reproducibility.
+                This ensures that the random number generation is consistent
+                across different runs.
+              </li>
+              <li>
+                <code>scenarioManager</code> is an instance of{" "}
+                <code>ScenarioManager</code> that manages the scenarios and
+                their parameters.
+              </li>
+              <li>
+                <code>scenario</code> is a function that generates a new{" "}
+                <code>HalfCircleScenario</code> from the given parameters. It
+                defines the specific conditions and computations for the
+                scenario.
+              </li>
+              <li>
+                <code>targetScoreClassifier</code> is a function that classifies
+                whether a score indicates being inside the target area. It is
+                used to evaluate if the current scenario meets the desired
+                conditions.
+              </li>
+            </ul>
+          </p>
         </section>
 
         <section style={styles.section}>
@@ -149,6 +199,35 @@ const FindSurfaceExplorer = () => {
             <code>True</code> if the exploration is complete, otherwise{" "}
             <code>False</code>.
           </p>
+
+          <p>
+            <strong>Example</strong>
+          </p>
+
+          <CodeBlock
+            data={`while not seq_exp.step():
+      continue`}
+          />
+          <ul>
+            <li>
+              The <code>step</code> method is called in a loop until it returns{" "}
+              <code>True</code>, indicating that the exploration is complete.
+              The method performs one exploration step by generating the next
+              set of parameters, testing the scenario, and checking if the
+              target score is achieved.
+            </li>
+            <li>
+              The current position is logged at each step using the{" "}
+              <code>next_arr</code> method. This helps in tracking the
+              exploration process and the parameters being tested at each stage.
+            </li>
+            <li>
+              The <code>step</code> method handles the logic for moving towards
+              the surface, transitioning to smaller step sizes, and getting
+              closer to the target until the specified conditions are met.
+            </li>
+          </ul>
+
           <p>
             <strong>
               _round_to_limits(arr: np.ndarray, min: np.ndarray, max:
@@ -162,9 +241,25 @@ const FindSurfaceExplorer = () => {
         </section>
 
         <section style={styles.section}>
+          <h2 style={styles.header2}>Full Example</h2>
+          <CodeBlock data={data.find_surface_explorer.full_example} />
+
+          <h3 style={styles.header3} className="mt-[20px]">
+            Output
+          </h3>
+          <Image
+            src="/images/example_outputs/find-surface.svg"
+            alt="Find Surface Explorer Output"
+            width={800}
+            height={0}
+            style={{ height: "auto" }}
+          />
+        </section>
+
+        {/* <section style={styles.section}>
           <h2 style={styles.header2}>Function Definition</h2>
           <CodeBlock data={data.find_surface_explorer.function_def} />
-        </section>
+        </section> */}
       </div>
     </DefaultLayout>
   );

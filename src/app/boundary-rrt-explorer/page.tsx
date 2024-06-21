@@ -6,6 +6,7 @@ import transition from "@/transition.js";
 
 import data from "../../data/data.js";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
+import Image from "next/image.js";
 
 const styles = {
   container: {
@@ -34,6 +35,11 @@ const styles = {
     fontSize: "20px",
     fontWeight: "600",
     marginBottom: "10px",
+  },
+  header3: {
+    fontSize: "15px",
+    fontWeight: "600",
+    marginBottom: "7px",
   },
 };
 
@@ -85,8 +91,8 @@ const BoundaryRRTExplorer = () => {
               the target score.
             </li>
             <li>
-              <strong>strategy</strong> <em>(str, default="e")</em>: The
-              adherence strategy. Supported values are "constant",
+              <strong>strategy</strong> <em>&#40;str, default="e"\&#41;</em>:
+              The adherence strategy. Supported values are "constant",
               "exponential", "const", "exp", "c", "e".
             </li>
             <li>
@@ -107,6 +113,33 @@ const BoundaryRRTExplorer = () => {
               for the parameter increments.
             </li>
           </ul>
+
+          <section style={styles.section}>
+            <h3 style={styles.header3}>Example: Follow the Surface</h3>
+            <p>
+              This example demonstrates how to use the{" "}
+              <code>BoundaryRRTExplorer</code> class to explore the parameter
+              space and find the boundary using the RRT approach.
+            </p>
+          </section>
+
+          <section style={styles.section}>
+            <h3 style={styles.header3}>Initializing the Explorer</h3>
+            <p>
+              The following code initializes an instance of the{" "}
+              <code>BoundaryRRTExplorer</code> class with the necessary
+              parameters.
+            </p>
+            <CodeBlock
+              data={data.boundary_rrt_explorer.initialization_eg}
+            ></CodeBlock>
+            <p>
+              Here, <code>root</code> is set to the last element in the{" "}
+              <code>fs_exp._arr_history</code> array, and an instance of{" "}
+              <code>BoundaryRRTExplorer</code> is created with the specified
+              parameters.
+            </p>
+          </section>
         </section>
 
         <section style={styles.section}>
@@ -158,6 +191,20 @@ const BoundaryRRTExplorer = () => {
             Advances the Boundary RRT by one step. Catches and counts exceptions
             if the boundary is lost or the sample is out of bounds.
           </p>
+          <section style={styles.section}>
+            <h2 style={styles.header2}>Exploring the Boundary</h2>
+            <p>
+              The following loop continues to call the <code>step</code> method
+              on the <code>brrt_exp</code> object until the length of{" "}
+              <code>brrt_exp._arr_history</code> reaches 1000.
+            </p>
+            <CodeBlock data={data.boundary_rrt_explorer.step_eg}></CodeBlock>
+            <p>
+              This ensures that the explorer continues to navigate the parameter
+              space until a sufficient number of steps have been taken.
+            </p>
+          </section>
+
           <p>
             <strong>_brrt_classifier(p: sbt.Point) -&gt; bool</strong>
           </p>
@@ -175,8 +222,18 @@ const BoundaryRRTExplorer = () => {
         </section>
 
         <section style={styles.section}>
-          <h2 style={styles.header2}>Function Definition</h2>
-          <CodeBlock data={data.boundary_rrt_explorer.function_def} />
+          <h2 style={styles.header2}>Function Example</h2>
+          <CodeBlock data={data.boundary_rrt_explorer.full_eg} />
+          <h3 style={styles.header3} className="mt-[20px]">
+            Output
+          </h3>
+          <Image
+            src="/images/example_outputs/boundary.svg"
+            alt="Boundary RRT Explorer Output"
+            width={800}
+            height={0}
+            style={{ height: "auto" }}
+          />
         </section>
       </div>
     </DefaultLayout>

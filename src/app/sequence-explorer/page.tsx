@@ -6,6 +6,7 @@ import transition from "@/transition.js";
 
 import data from "../../data/data.js";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
+import Image from "next/image.js";
 
 const styles = {
   container: {
@@ -34,6 +35,11 @@ const styles = {
     fontSize: "20px",
     fontWeight: "600",
     marginBottom: "10px",
+  },
+  header3: {
+    fontSize: "15px",
+    fontWeight: "600",
+    marginBottom: "7px",
   },
 };
 
@@ -92,6 +98,23 @@ const SequenceExplorerMethod = () => {
               iterations to fast forward during initialization.
             </li>
           </ul>
+
+          <section style={styles.section}>
+            <h3 style={styles.header3}>Initialization Example</h3>
+            <p>
+              The following code initializes an instance of the{" "}
+              <code>ExhaustiveExplorer</code> class with the necessary
+              parameters.
+            </p>
+            <CodeBlock
+              data={data.sequence_explorer.initialization_eg}
+            ></CodeBlock>
+            <p>
+              Here, we initialize the <code>SequenceExplorer</code> for each of
+              the specified strategies (Monte Carlo, Halton, Sobol) and execute
+              1000 steps for each explorer.
+            </p>
+          </section>
         </section>
 
         <section style={styles.section}>
@@ -150,8 +173,18 @@ const SequenceExplorerMethod = () => {
         </section>
 
         <section style={styles.section}>
-          <h2 style={styles.header2}>Function Definition</h2>
-          <CodeBlock data={data.sequence_explorer.function_def} />
+          <h2 style={styles.header2}>Function Example</h2>
+          <CodeBlock data={data.exhaustive_explorer.full_example} />
+          <h3 style={styles.header3} className="mt-[20px]">
+            Output
+          </h3>
+          <Image
+            src="/images/example_outputs/sequential.svg"
+            alt="Sequence Explorer Output"
+            width={800}
+            height={0}
+            style={{ height: "auto" }}
+          />
         </section>
       </div>
     </DefaultLayout>
