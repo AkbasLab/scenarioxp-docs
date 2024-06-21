@@ -99,11 +99,6 @@ const ProjectMethod = () => {
           <h2 style={styles.header2}>Examples</h2>
           <CodeBlock data={data.project.example_code} />
         </section>
-
-        <section style={styles.section}>
-          <h2 style={styles.header2}>Function Definition</h2>
-          <CodeBlock data={data.project.function_def} />
-        </section>
       </div>
     </DefaultLayout>
   );
