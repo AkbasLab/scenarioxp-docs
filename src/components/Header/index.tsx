@@ -105,7 +105,6 @@ const Header = (props: {
             <DarkModeSwitcher />
             {/* <!-- Dark Mode Toggler --> */}
           </ul>
-
         </div>
       </div>
     </header>

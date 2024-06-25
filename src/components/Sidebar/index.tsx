@@ -30,13 +30,8 @@ const links = [
   { title: "Explorer", path: "explorer" },
   { title: "Exhaustive Explorer", path: "exhaustive-explorer" },
   { title: "Sequence Explorer", path: "sequence-explorer" },
-<<<<<<< HEAD
   // { title: "Exhaustive Explorer", path: "/exhaustive-explorer" },
   // { title: "Sequence Explorer", path: "/sequence-explorer" },
-=======
-  { title: "Exhaustive Explorer", path: "/exhaustive-explorer" },
-  { title: "Sequence Explorer", path: "/sequence-explorer" },
->>>>>>> cabd3b09ebe8152b9c5ccd5c9412ae3f50cb4f00
   { title: "Find Surface Explorer", path: "/find-surface-explorer" },
   { title: "Boundary RRT Explorer", path: "/boundary-rrt-explorer" },
 ];
@@ -160,7 +155,6 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                 {/* <!-- Menu Item Tables --> */}
               </ul>
             </div>
-
           </nav>
           {/* <!-- Sidebar Menu --> */}
         </div>
